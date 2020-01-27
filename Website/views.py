@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import auth
 from django.template.context_processors import csrf
-from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from Website.forms import RegistrationForm
@@ -28,10 +27,10 @@ def register_user(request):
 def register_success(request):
     return render_to_response('register_success.html')
 
-def login(request):
-    login = {}
-    login.update(csrf(request))
-    return render_to_response('login_user.html', login)
+def login_user(request):
+    login_user = {}
+    login_user.update(csrf(request))
+    return render_to_response('login_user.html', login_user)
 
 def auth_view(request):
     username = request.POST.get('username', '')
@@ -40,12 +39,12 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return redirect('base')
+        return redirect('index')
     else:
-        return HttpResponseRedirect('/invalid')
+        return HttpResponseRedirect('invalid_login')
     
-def loggedin(request):
-    return render_to_response('loggedin.html',
+def logged_in(request):
+    return render_to_response('logged_in.html',
                               {'full_name': request.user.username})
 
 def invalid_login(request):

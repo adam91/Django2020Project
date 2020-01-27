@@ -3,7 +3,7 @@
 {% block content %}
 
 	<div class="form">	
-		<form action="/authorized/" method="post">{% csrf_token %}
+		<form action="{% url 'authorized' %}" method="post">{% csrf_token %}
 			<label for="username">Login:</label>
 			<input type="text" name="username" value="" id="username">
 			<label for="password"> hasło:</label>
