@@ -39,7 +39,7 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return redirect('index')
+        return redirect('logged_in')
     else:
         return HttpResponseRedirect('invalid_login')
     
