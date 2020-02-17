@@ -1,10 +1,16 @@
+from typing import Any
+
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import auth
+from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from Website.forms import RegistrationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login as auth_login
 
 
 def index(request):
@@ -16,7 +22,6 @@ def register_user(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('register_success')
-        print(form.errors)
 
     args = {}
     args.update(csrf(request))
@@ -37,7 +42,7 @@ def auth_view(request):
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
 
-    if user is not None:
+    if user is not None and user.is_active:
         auth.login(request, user)
         return redirect('logged_in')
     else:
@@ -45,11 +50,11 @@ def auth_view(request):
     
 def logged_in(request):
     return render_to_response('logged_in.html',
-                              {'full_name': request.user.username})
+                              {'user': request.user})
 
 def invalid_login(request):
     return render_to_response('invalid_login.html')
 
-def logout(request):
+def logged_out(request):
     auth.logout(request)
-    return render_to_response('logout.html')
+    return render_to_response('logged_out.html')

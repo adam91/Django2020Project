@@ -5,6 +5,8 @@
 		<h1>Rejestracja</h1>
 		<form action="{% url 'register_user' %}" method="post">{%csrf_token %}
 			{{form}}
+			{{form.username.errors}}
+			{{form.errors.username}}
 			<input type="submit" value="Zarejestruj" />
 		</form>
 	</div>
