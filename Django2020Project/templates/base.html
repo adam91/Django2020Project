@@ -1,19 +1,26 @@
+﻿<!DOCTYPE html>
+{% load staticfiles %}
 <html>
-  <head>
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static " css
+    /Django2020Project.css" %}">
     <title>{% block title %}Welcome{% endblock %}</title>
-  </head>
-  <body>
-    <header>
-      <h1>Welcome on my site :)</h1>
-    </header>
-	{% if user.is_authenticated %}
-		<a href="{% url 'logged_out' %}">logout</a>
-	{% else %}
-		<a href="{% url 'login_user' %}">login</a> / <a href="{% url 'register_user' %}">signup</a>
-	{% endif %}
-    <main>
-      {% block content %}
-      {% endblock %}
-    </main>
-  </body>
+</head>
+<body>
+<header>
+    <h1>Welcome on my site :)</h1>
+</header>
+{% if user.is_authenticated %}
+<a href="{% url 'logged_out' %}">logout</a>
+{% else %}
+<a href="{% url 'login_user' %}">login</a> / <a href="{% url 'register_user' %}">signup</a>
+{% endif %}
+<main>
+    <p>Ciekawie tu</p>
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
 </html>

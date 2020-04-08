@@ -10,4 +10,6 @@ urlpatterns = [
     path('logged_out', views.logged_out, name='logged_out'),
     path('logged_in', views.logged_in, name='logged_in'),
     path('invalid_login', views.invalid_login, name='invalid_login'),
+    path('scraping', views.input, name='input'),
+    path('scrapingscore', views.scraping, name='scraping'),
 ]
