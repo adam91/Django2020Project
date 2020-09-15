@@ -115,7 +115,7 @@ def scraping(request):
             newlink = 'https://filmweb.pl' + urls
             response = requests.get(newlink).text
             soup1 = BeautifulSoup(response, 'html.parser')
-            name = soup1.find("a", itemprop="name").text
+            name = soup1.find("span", itemprop="name").text
             if name.lower() != data.lower():
                 incorrectname = "You chose " + data, " did you mean " + name + "?"
             else:
