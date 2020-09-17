@@ -110,7 +110,7 @@ def scraping(request):
 
                 urls = urls.replace(" ", "")
             else:
-                namenotfound = 'Actor not found :( Please check the spelling! :)'
+                namenotfound = 'Person not found :( Please check the spelling! :)'
                 return render(request, 'scrapingscore.html', {'namenotfound': namenotfound})
             newlink = 'https://filmweb.pl' + urls
             response = requests.get(newlink).text
@@ -121,13 +121,18 @@ def scraping(request):
             else:
                 incorrectname = ''
             if 'ocena pracy reżyserskiej' in response:
-                profession = name + ' is a director, his best 3 director works in the opinion of fans are:'
+                profession = name + ' is a director, best 3 director works in the opinion of fans are:'
             elif 'ocena ról aktorskich' in response:
-                profession = name + ' - is an actor, his best 3 movie roles in the opinion of fans are:'
+                profession = name + ' - is an actor, best 3 movie roles in the opinion of fans are:'
             elif 'ocena scenariuszy' in response:
-                profession = name + 'is a scenarist, his 3 best scenarios in the opinion of fans are:'
+                profession = name + 'is a scenarist, best scenarios in the opinion of fans are:'
+            else:
+                profession = name + ' - best 3 creations in the opinion of fans are:'
             photo = soup1.select_one('.personBigPhoto')['src']
-            birthdate = soup1.find("span", itemprop="birthDate").text
+            if soup1.find("span", itemprop="birthDate"):
+                birthdate = soup1.find("span", itemprop="birthDate").text
+            else:
+                birthdate = 'No birthdate :('
             print(name)
             results = soup1.find_all("div", class_="maxlines-4")
 
@@ -175,3 +180,6 @@ def scraping(request):
 
 def scrapingscore(request):
     return render_to_response('scrapingscore.html')
+
+def homepage(request):
+    return render_to_response('homepage.html')
