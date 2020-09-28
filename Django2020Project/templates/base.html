@@ -4,8 +4,7 @@
 <head>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static " css
-    /Django2020Project.css" %}">
+    <link rel="stylesheet" href="{% static " css/Django2020Project.css" %}">
     <title>{% block title %}Welcome{% endblock %}</title>
 </head>
 <body>
@@ -16,8 +15,10 @@
     {% endif %}
 </header>
 {% if user.is_authenticated %}
+<p>1</p>
 <a href="{% url 'logged_out' %}">logout</a>
 {% else %}
+<p>2</p>
 <a href="{% url 'login_user' %}">login</a> / <a href="{% url 'register_user' %}">signup</a>
 {% endif %}
 <main>

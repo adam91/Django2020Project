@@ -169,13 +169,17 @@ def scraping(request):
                 movieratenumber2 = link.text
             for link in results4[:3]:
                 movieratenumber3 = link.text
-            return render(request, 'scrapingscore.html',
+            try:
+                return render(request, 'scrapingscore.html',
                           {'movielink1': movielink1, 'movielink2': movielink2, 'movielink3': movielink3,
                            'moviename1': moviename1, 'moviename2': moviename2, 'moviename3': moviename3,
                            'movierate1': movierate1, 'movierate2': movierate2, 'movierate3': movierate3,
                            'movieratenumber1': movieratenumber1, 'movieratenumber2': movieratenumber2,
                            'movieratenumber3': movieratenumber3, 'profession': profession,
                            'incorrectname': incorrectname, 'birthdate': birthdate, 'photo': photo})
+            except:
+                namenotfound = 'Unfortunately we did not find 3 movies for ' + name
+                return render(request, 'scrapingscore.html', {'namenotfound': namenotfound})
 
 
 def scrapingscore(request):
